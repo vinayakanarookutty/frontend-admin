@@ -1,202 +1,153 @@
-import * as React from 'react';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import MuiDrawer from '@mui/material/Drawer';
-import Box from '@mui/material/Box';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
-import Link from '@mui/material/Link';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from './leftNav';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import { Routes, Route } from "react-router-dom";
-import LogoutIcon from '@mui/icons-material/Logout';
+import React from 'react'
+import aa from "../assets/aa.jpg"
+import ab from "../assets/ab.jpg"
+import bb from "../assets/bb.jpg"
+import cc from "../assets/cc.jpg"
+import dd from "../assets/dd.jpg"
+import ee from "../assets/ee.jpg"
+import ff from "../assets/ff.jpg"
+import gg from "../assets/gg.jpg"
+import hh from "../assets/hh.jpg"
+import pp from "../assets/pp.jpg"
+import { Box } from '@mui/material'
+import axios from 'axios';
+import PropertyCard from './PropertyCard'
+import { Typography } from '@mui/material'
 
+function Dashboard() {
 
-function Copyright(props: any) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="" underline="none">
-        N-OMS
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-const drawerWidth: number = 240;
-
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
-}
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    '& .MuiDrawer-paper': {
-      position: 'relative',
-      whiteSpace: 'nowrap',
-      width: drawerWidth,
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      boxSizing: 'border-box',
-      ...(!open && {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-          width: theme.spacing(9),
-        },
-      }),
-    },
-  }),
-);
-
-const mdTheme = createTheme();
-
-function DashboardContent() {
-  const [open, setOpen] = React.useState(true);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
+      const [properties,setProperties]=React.useState([])
+    axios.get('http://localhost:8080/api/v1/properties').then(response => {
+      setProperties(response.data)
+    console.log('Properties', response.data);
+    })
+   
+    
 
   return (
-    <ThemeProvider theme={mdTheme}>
-      <Box sx={{ display: 'flex', maxHeight:"100vh" }}>
-        <CssBaseline />
-        <AppBar position="absolute" open={open}>
-          <Toolbar
-            sx={{
-              pr: '24px', // keep right padding when drawer closed
-            }}
-          >
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              sx={{
-                marginRight: '36px',
-                ...(open && { display: 'none' }),
-              }}
+  
+<Box>
+<Typography fontSize={25} fontWeight={700} color="#111420">
+     Dashboard
+     </Typography>
+     <Box
+                mt="20px"
+                minWidth="100%"
+                height="380"
+                sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: "20px",
+                   overflow:"hidden",
+                   backgroundColor:"white"
+                }}
             >
-              <MenuIcon />
-             
-            </IconButton>
-            <AccountCircleIcon style={{marginLeft:"10px",marginTop:"10px"}} sx={{fontSize:40}}/>
-            <Typography
-              paddingLeft={"10px"}
-              paddingTop={"10px"}
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
+     <Box 
+     id="slider"
+     width="1269px"
+     height="380px"
+     borderRadius="0 8px 8px 0"
+     sx={{backgroundColor:"#FCFCFC",animationDirection:"left",overflowy:"hidden"}}
+     >
+      
+      
+     <figure>
 
-              N-OMS
-             
-            </Typography>
-           
-            
-            
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-              
-            </IconButton>
-            <LogoutIcon style={{borderLeft:"10"}}/>
-          </Toolbar>
-          
-        </AppBar>
-        <Drawer variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-              px: [1],
-            }}
-          >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <List component="nav" sx = {{overflowY:"scroll", height:"100vh"}}>
-            {mainListItems}
-            <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
-          </List>
-        </Drawer>
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            flexGrow: 1,
-            height: '100vh',
-            overflow: 'auto',
-          }}
-        >
-          <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-            <Routes>
-        <Route path="/createQuestion" element={<CreateQuestion />} />
-        <Route path="/taskList" element={<TaskList />} />
-        <Route path="/taskCategory" element={<TaskStatus />} />
-        <Route path="/clientTable" element={<ClientList/>}/>
-        <Route path="/addClient" element={<AddClient/>}/>
-        <Route path="/userRoles" element={<UserRoles/>}/>
-        <Route path="/userDesignationList" element={<UserDesignation/>}/>
-        <Route path="/taskStatusList" element={<TaskStatusList/>}/>
-      </Routes>
-            
-            </Grid>
-          </Container>
-          <Copyright sx={{ pt: 4 }} />
-        </Box>
+      <img src={aa}
+      
+     
+      
+      style={{ width:"633px", paddingLeft:"4px",paddingTop:"3px"}}
+      
+      alt="adam image"
+      />
+       <img src={ab}
+      style={{ width:"633px", paddingLeft:"4px",paddingTop:"3px"}}
+        alt="adam image"
+      />
+       <img src={bb}
+      style={{ width:"634px", paddingLeft:"4px",paddingTop:"3px"}}
+        alt="adam image"
+      />
+       <img src={cc}
+      style={{ width:"635px", paddingLeft:"4px",paddingTop:"3px"}}
+        alt="adam image"
+      />
+       <img src={dd}
+      style={{ width:"634px", paddingLeft:"4px",paddingTop:"3px"}}
+        alt="adam image"
+      />
+       <img src={ee}
+      style={{ width:"635px", paddingLeft:"4px",paddingTop:"3px"}}
+        alt="adam image"
+      />
+       <img src={hh}
+      style={{ width:"634px", paddingLeft:"4px",paddingTop:"3px"}}
+        alt="adam image"
+      />
+       
+      <img src={ff}
+      style={{ width:"634px", paddingLeft:"4px",paddingTop:"3px"}}
+        alt="adam image"
+      />
+       <img src={gg}
+      style={{ width:"635px", paddingLeft:"4px",paddingTop:"3px"}}
+        alt="adam image"
+        
+      />
+      <img src={pp}
+      style={{ width:"633px", paddingLeft:"4px",paddingTop:"3px"}}
+        alt="adam image"
+      />
+      
+    
+      
+      </figure>
+      
+      
+     </Box>
+     </Box>
+{/* <div>Dashboard</div> */}
+<Box
+     flex={1}
+     borderRadius="15px"
+     padding="20px"
+     bgcolor="#fcfcfc"
+     display="flex"
+     flexDirection="column"
+     minWidth="100%"
+     mt="25px"
+     >
+      
+      <Typography fontSize="18px"ml={1.3} fontWeight={600} color="#11142d">
+        Latest Properties
+        
+
+      </Typography>
+      <Box mt={2} ml={0} sx={{display:"flex",flexWrap:"wrap",gap:6}}>
+        {properties?.map((property:any)=>(
+
+          <PropertyCard
+          key={property._id}
+          id={property._id}
+          title={property.title}
+          location={property.location}
+          price={property.price}
+          photo={property.photo}
+          />
+
+        ))}
+
+
       </Box>
-    </ThemeProvider>
-  );
+
+     </Box>
+
+</Box>
+   
+
+
+  )
 }
 
-export default function Dashboard() {
-  return <DashboardContent />;
-}
+export default Dashboard
