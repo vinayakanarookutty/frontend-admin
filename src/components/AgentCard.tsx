@@ -1,7 +1,6 @@
 import {EmailOutlined,LocationCity,Phone,Place} from '@mui/icons-material';
 import {useGetIdentity} from '@pankod/refine-core';
 import {Box,Stack,Typography} from '@pankod/refine-mui';
-import {AgentCardProp,InfoBarProps} from 'interfaces/agent';
 const InfoBar=  ({icon,name}: InfoBarProps)=> (
   <Stack flex={1} minWidth={{xs:'100%', sm:300}}gap={1.5} direction="row">
     {icon}
@@ -9,12 +8,8 @@ const InfoBar=  ({icon,name}: InfoBarProps)=> (
 
   </Stack>
 );
-const AgentCard = ({id,name,email,avatar,noOfProperties}: AgentCardProp) => {
-  const {data:currentUser}=useGetIdentity();
-  // const generateLink = () => {
-  //   if(currentUser.email === email) return "/my-profile";
-  //   return `/agents/show/${id}`;
-  // }
+const AgentCard = (prop: any) => {
+ const {id,name,email,avatar,noOfProperties}=prop
   return (
     <Box
 
