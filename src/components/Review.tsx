@@ -15,13 +15,14 @@ export default function Review() {
             name:data.name,
             email:data.email,
             review:data.review,
-            rating:data.rating
+            rating:data.rating,
+            isActive:data.isActive
         }
     
       }).filter((data: any) => data.review !== undefined)
       
   
-     const[isActive,setIsActive]=React.useState(false)
+     const[isActive,setIsActive]=React.useState()
   
       const columns: GridColDef[] = [
         // { field: 'id', headerName: 'ID', width: 90 },
@@ -60,9 +61,10 @@ export default function Review() {
               return (
                 <>
                   
-                  <Switch name="activate"  onChange={() => {
+                  <Switch checked={params.row.isActive}  onChange={() => {
+                    setIsActive(params.row.isActive)
                     Approve({ name: params.row.name,email:params.row.email,review:params.row.review,rating:params.row.rating })
-                    isActive ? (setIsActive(false)) :(setIsActive(true))
+                    isActive ? (setIsActive(false)):(setIsActive(true))
                     }} />
                   {/* {changingState && stateChangeId === params.row.id && <CircularProgress size={30} />} */}
       
@@ -118,8 +120,10 @@ export default function Review() {
 
   return (
     // <div>Review</div>
-    <Box sx={{ height: 250, width: '100%',marginLeft:"14%" }}>
-                <Typography sx={{fontSize:"15px",alignContent:"center",paddingBottom:"10%",paddingLeft:"40%"}}>Reviews</Typography>
+    <Box sx={{display:"flex",flexDirection:"column"}}>
+        <Typography sx={{fontSize:"15px",paddingBottom:"10%",paddingLeft:"40%"}}>Reviews</Typography>
+       <Box sx={{ height: 350, width: 850,marginLeft:"20%",marginBottom:"20%" }}>
+              
         <DataGrid
             rows={row}
          columns={columns}
@@ -127,5 +131,8 @@ export default function Review() {
           pageSize={5}
         />
         </Box>
+
+    </Box>
+   
   )
 }
