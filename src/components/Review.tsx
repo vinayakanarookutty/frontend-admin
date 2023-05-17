@@ -118,8 +118,8 @@ export default function Review() {
 
   return (
     // <div>Review</div>
-    <Box sx={{ height: 250, width: '100%',marginLeft:"14%" }}>
-                <Typography sx={{fontSize:"15px",alignContent:"center",paddingBottom:"10%",paddingLeft:"40%"}}>Reviews</Typography>
+    <Box overflow="hidden" sx={{ height: 250, width: '100%',marginLeft:"14%",paddingRight:"14%" }}>
+                <Typography fontWeight={600}  sx={{fontSize:"30px",alignContent:"center",paddingBottom:"10%",paddingLeft:"50%"}}>Reviews</Typography>
         <DataGrid
             rows={row}
          columns={columns}

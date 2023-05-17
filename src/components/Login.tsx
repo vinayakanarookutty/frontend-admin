@@ -4,6 +4,7 @@ import {
   Button,
   Grid,
   Paper,
+  Box,
   Typography,
 } from "@mui/material";
 import { Title } from "./Title";
@@ -31,12 +32,14 @@ const Login = () => {
 
   return (
   
-    <Grid container  sx={{justifyContent:"center",alignItems:"center"}} style={{ height: "70vh", }}>
+    <Grid container  sx={{justifyContent:"center",alignItems:"center",backgroundColor:"white"}} style={{ height: "70vh", }}>
        <Title/>
       <Grid item xs={5} sm={6} md={4}>
-        <Paper elevation={2} style={{ padding: "50px" }}>
-          <Typography style={{fontWeight:"500"}} variant="h5" align="center" gutterBottom>
-         Admin Login
+        <Box
+        sx={{backgroundColor:"grey"}}
+        >
+          <Typography style={{fontWeight:"700"}} variant="h4" align="center" gutterBottom>
+         Admin-Login
           </Typography>
           <form onSubmit={handleSubmit}>
             <Grid container direction="column" spacing={3}>
@@ -73,7 +76,7 @@ const Login = () => {
               </Grid>
             </Grid>
           </form>
-        </Paper>
+          </Box>
       </Grid>
     </Grid>
   );
